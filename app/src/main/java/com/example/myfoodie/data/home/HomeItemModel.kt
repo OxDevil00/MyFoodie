@@ -1,0 +1,12 @@
+package com.example.myfoodie.data.home
+
+data class HomeItemModel(
+    val food_pic: Int,
+    val food_name: String,
+    val food_price: String,
+    val food_likes_count: Int,
+
+){
+    val food_isLiked : Boolean = false
+
+}
