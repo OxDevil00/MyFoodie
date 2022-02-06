@@ -37,15 +37,15 @@
             android:layout_gravity="bottom"
             android:background="@drawable/home_price_layout_bg">
 
-            <ImageView
-                android:id="@+id/home_item_un_like_btn"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/home_item_btn_addCart"
-                app:layout_constraintStart_toEndOf="@+id/home_item_food_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_un_favorite_btn_24" />
+<!--            <ImageView-->
+<!--                android:id="@+id/home_item_un_like_btn"-->
+<!--                android:layout_width="28dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/home_item_btn_addCart"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/home_item_food_name"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="@drawable/ic_baseline_un_favorite_btn_24" />-->
 
             <ImageView
                 android:id="@+id/home_item_like_btn"
@@ -55,8 +55,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/home_item_btn_addCart"
                 app:layout_constraintStart_toEndOf="@+id/home_item_food_name"
                 app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_baseline_favorite_btn_24" />
+                app:srcCompat="@drawable/ic_baseline_un_favorite_btn_24" />
 
             <TextView
                 android:id="@+id/home_item_like_count"

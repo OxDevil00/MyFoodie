@@ -12,7 +12,8 @@ import com.example.myfoodie.R
 import com.example.myfoodie.data.home.HomeItemModel
 import java.util.ArrayList
 
-class HomeAdapter(private val list : ArrayList<HomeItemModel>, private val homeItemListener: HomeItemListener) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(private val list : List<HomeItemModel>, private val homeItemListener: HomeItemListener)
+    : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_food_item_view,parent,false)
@@ -35,9 +36,9 @@ class HomeAdapter(private val list : ArrayList<HomeItemModel>, private val homeI
             homeItemListener.onAddCartClicked(currentItem)
         }
 
-        holder.food_un_like_btn.setOnClickListener {
-            homeItemListener.onLikeBtnClicked(currentItem)
-        }
+//        holder.food_un_like_btn.setOnClickListener {
+//            homeItemListener.onLikeBtnClicked(currentItem)
+//        }
         holder.food_like_btn.setOnClickListener {
             homeItemListener.onLikeBtnClicked(currentItem)
         }
@@ -51,7 +52,7 @@ class HomeAdapter(private val list : ArrayList<HomeItemModel>, private val homeI
         val food_price : TextView = viewItem.findViewById(R.id.home_item_food_price)
         val food_likes_count : TextView = viewItem.findViewById(R.id.home_item_like_count)
         val food_like_btn : ImageView = viewItem.findViewById(R.id.home_item_like_btn)
-        val food_un_like_btn : ImageView = viewItem.findViewById(R.id.home_item_un_like_btn)
+      //  val food_un_like_btn : ImageView = viewItem.findViewById(R.id.home_item_un_like_btn)
         val btn_add_to_cart : LinearLayout = viewItem.findViewById(R.id.home_item_btn_addCart)
 
     }
