@@ -9,32 +9,37 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myfoodie.R
 import com.example.myfoodie.data.home.HomeItemModel
 import com.example.myfoodie.data.myCart.MyCartModel
+import com.example.myfoodie.databinding.FragmentHomeBinding
 import com.example.myfoodie.ui.myCart.MyCartActivity
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.home_food_item_view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), HomeItemListener {
 
+    private var _binding: FragmentHomeBinding? = null
+    // This property is only valid between onCreateView and
+     // onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val root: View = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+
         val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         homeViewModel.homeItemList.observe(viewLifecycleOwner) {
-            val list =  it
-            root.home_item_rec.layoutManager = LinearLayoutManager(activity)
-            root.home_item_rec.adapter = HomeAdapter(list,this)
+            binding.homeItemRec.layoutManager = LinearLayoutManager(activity)
+            binding.homeItemRec.adapter = HomeAdapter(it,this)
+
         }
-        root.home_cart_icon.setOnClickListener {
-            startActivity(Intent(root.context,MyCartActivity::class.java))
+        binding.homeCartIcon.setOnClickListener {
+         startActivity(Intent(activity,MyCartActivity::class.java))
         }
 
-        return root
+        return view
     }
 
     override fun onAddCartClicked(homeItemModel: HomeItemModel){
@@ -49,14 +54,6 @@ class HomeFragment : Fragment(), HomeItemListener {
     }
 
     override fun onLikeBtnClicked(homeItemModel: HomeItemModel) {
-        var isLiked = homeItemModel.food_isLiked // initially isLiked is false
-        if(isLiked){
-            home_item_like_btn.setImageResource(R.drawable.ic_baseline_un_favorite_btn_24)
-            Toast.makeText(activity,"Un Liked",Toast.LENGTH_SHORT).show()
-        }else{
-            home_item_like_btn.setImageResource(R.drawable.ic_baseline_favorite_btn_24)
-            Toast.makeText(activity,"Liked",Toast.LENGTH_SHORT).show()
-        }
 
     }
 

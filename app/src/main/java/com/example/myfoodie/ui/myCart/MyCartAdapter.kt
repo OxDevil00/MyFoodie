@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myfoodie.R
 import com.example.myfoodie.data.myCart.MyCartModel
-import java.util.ArrayList
 
-class MyCartAdapter(private val list : List<MyCartModel>,private val myCartItemListener: MyCartItemListener ) : RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder>() {
+class MyCartAdapter(private val list : List<MyCartModel>,private val myCartItemListener: MyCartItemListener )
+    : RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCartViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.my_cart_item,parent,false)

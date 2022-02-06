@@ -8,27 +8,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfoodie.R
 import com.example.myfoodie.data.myCart.MyCartModel
 import com.example.myfoodie.data.myCart.MyCartRoodDB
-import kotlinx.android.synthetic.main.activity_my_cart.*
-import kotlinx.android.synthetic.main.my_cart_item.*
+import com.example.myfoodie.databinding.ActivityMyCartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MyCartActivity : AppCompatActivity(),MyCartItemListener {
+    private lateinit var binding : ActivityMyCartBinding
     lateinit var myCartRoodDB: MyCartRoodDB
     lateinit var myCartViewModel : MyCartViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_cart)
+        binding = ActivityMyCartBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         myCartRoodDB = MyCartRoodDB.getMyCartRoodDB(this)
 
         myCartViewModel = ViewModelProvider(this)[MyCartViewModel::class.java]
 
         myCartViewModel.myCartLiveList.observe(this){
-            my_cart_rec.layoutManager = LinearLayoutManager(this)
-            my_cart_rec.adapter = MyCartAdapter(it,this)
+            binding.myCartRec.layoutManager = LinearLayoutManager(this)
+            binding.myCartRec.adapter = MyCartAdapter(it,this)
         }
 
     }
