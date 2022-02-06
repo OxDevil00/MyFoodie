@@ -11,7 +11,7 @@ import com.example.myfoodie.R
 import com.example.myfoodie.data.myCart.MyCartModel
 import java.util.ArrayList
 
-class MyCartAdapter(private val list : List<MyCartModel>) : RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder>() {
+class MyCartAdapter(private val list : List<MyCartModel>,private val myCartItemListener: MyCartItemListener ) : RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCartViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.my_cart_item,parent,false)
@@ -24,12 +24,17 @@ class MyCartAdapter(private val list : List<MyCartModel>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: MyCartViewHolder, position: Int) {
-        val view = list[position]
-//        holder.food_pic = view.food_pic
-        holder.food_name.text = view.foodName.toString()
-        holder.food_description.text = view.foodDescription.toString()
-        holder.food_price.text = view.foodPrice.toString()
-        holder.food_num_of_pieces.text = view.foodNumPieces.toString()
+        val currentItem = list[position]
+
+        holder.food_pic.setImageResource(currentItem.foodImage)
+        holder.food_name.text = currentItem.foodName.toString()
+        holder.food_description.text = currentItem.foodDescription.toString()
+        holder.food_price.text = currentItem.foodPrice.toString()
+        holder.food_num_of_pieces.text = currentItem.foodNumPieces.toString()
+
+        holder.food_item_delete_btn.setOnClickListener {
+            myCartItemListener.onDeleteBtnClicked(currentItem)
+        }
 
     }
 
@@ -42,9 +47,12 @@ class MyCartAdapter(private val list : List<MyCartModel>) : RecyclerView.Adapter
         val food_num_of_pieces : TextView = viewItem.findViewById(R.id.my_cart_food_count)
         val food_item_min_btn : ImageView = viewItem.findViewById(R.id.my_cart_food_min_btn)
         val food_item_plus_btn : ImageView = viewItem.findViewById(R.id.my_cart_food_plus_btn)
-
-
+        val food_item_delete_btn : ImageView = viewItem.findViewById(R.id.my_cart_cross_btn)
 
     }
 
+}
+
+interface MyCartItemListener{
+    fun onDeleteBtnClicked(myCartModel: MyCartModel)
 }

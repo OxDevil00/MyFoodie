@@ -13,13 +13,12 @@ import java.util.ArrayList
 
 class MyCartViewModel(application: Application) : AndroidViewModel(application) {
 
+    val myCartDao = MyCartRoodDB.getMyCartRoodDB(application).myCartDao()
+    val myCartRepository = MyCartRepository(myCartDao)
 
-    val myCartLiveList : LiveData<List<MyCartModel>>
-
-    init {
-        val myCartDao = MyCartRoodDB.getMyCartRoodDB(application).myCartDao()
-        val myCartRepository = MyCartRepository(myCartDao)
-        myCartLiveList = myCartRepository.myCartListLive
+    val myCartLiveList = myCartRepository.myCartListLive
+    suspend fun deleteCartItem(myCartModel: MyCartModel){
+        myCartRepository.deleteCartItem(myCartModel)
     }
 
 
