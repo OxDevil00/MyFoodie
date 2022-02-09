@@ -17,6 +17,7 @@ class MyCartViewModel(application: Application) : AndroidViewModel(application) 
     val myCartRepository = MyCartRepository(myCartDao)
 
     val myCartLiveList = myCartRepository.myCartListLive
+
     suspend fun deleteCartItem(myCartModel: MyCartModel){
         myCartRepository.deleteCartItem(myCartModel)
     }

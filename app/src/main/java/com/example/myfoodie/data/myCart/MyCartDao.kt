@@ -15,7 +15,7 @@ interface MyCartDao {
     @Update
     suspend fun updateCartItem(cartModel: MyCartModel)
 
-    @Query("SELECT * FROM MyCartTable ORDER BY ID ASC")
+    @Query("SELECT * FROM MyCartTable")
     fun getMyCartList() : LiveData<List<MyCartModel>>
 
 }

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/black_border.xml" value="0.1975" />
+        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/home_price_bg.xml" value="0.1975" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/home_price_layout_bg.xml" value="0.2075" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/ic_baseline_cut_24.xml" value="0.1695" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2075" />
@@ -11,6 +13,8 @@
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/ic_baseline_un_favorite_btn_24.xml" value="0.1595" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2075" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/my_cart_item_bg.xml" value="0.1735" />
+        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/place_order_bg.xml" value="0.1975" />
+        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/drawable/place_order_bg2.xml" value="0.1975" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/activity_my_cart.xml" value="0.25" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
@@ -18,7 +22,7 @@
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/fragment_orders.xml" value="0.2" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
-        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/home_food_item_view.xml" value="0.25" />
+        <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/home_food_item_view.xml" value="0.2" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/layout/my_cart_item.xml" value="0.33" />
         <entry key="..\:/Users/deepa/AndroidStudioProjects/MyFoodie/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
       </map>
