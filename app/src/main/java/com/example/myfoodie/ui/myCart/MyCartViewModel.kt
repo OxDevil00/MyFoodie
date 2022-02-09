@@ -21,7 +21,9 @@ class MyCartViewModel(application: Application) : AndroidViewModel(application) 
     suspend fun deleteCartItem(myCartModel: MyCartModel){
         myCartRepository.deleteCartItem(myCartModel)
     }
-
+    suspend fun updateCartItem(myCartModel: MyCartModel){
+        myCartRepository.updateCartItem(myCartModel)
+    }
 
 
 }
