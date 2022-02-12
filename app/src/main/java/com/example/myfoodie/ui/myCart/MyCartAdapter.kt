@@ -58,7 +58,7 @@ class MyCartAdapter(private val myCartItemListener: MyCartItemListener )
 }
 class MyDiffUtil : DiffUtil.ItemCallback<MyCartModel>(){
     override fun areItemsTheSame(oldItem: MyCartModel, newItem: MyCartModel): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.foodName == newItem.foodName
     }
 
     override fun areContentsTheSame(oldItem: MyCartModel, newItem: MyCartModel): Boolean {

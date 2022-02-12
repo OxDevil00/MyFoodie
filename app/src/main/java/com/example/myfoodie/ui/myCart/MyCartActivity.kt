@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myfoodie.R
 import com.example.myfoodie.data.myCart.MyCartModel
-import com.example.myfoodie.data.myCart.MyCartRoodDB
+import com.example.myfoodie.data.payment.PaymentRoomDB
 import com.example.myfoodie.databinding.ActivityMyCartBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -16,18 +15,16 @@ import kotlinx.coroutines.launch
 
 class MyCartActivity : AppCompatActivity(),MyCartItemListener {
     private lateinit var binding : ActivityMyCartBinding
-    lateinit var myCartRoodDB: MyCartRoodDB
     lateinit var myCartViewModel : MyCartViewModel
     lateinit var myCartAdapter: MyCartAdapter
-
+    private var totalFoodAmount = 0
+    private var deliveryAmount = 0
+    private var totalAmount = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyCartBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        myCartRoodDB = MyCartRoodDB.getMyCartRoodDB(this)
-
         myCartViewModel = ViewModelProvider(this)[MyCartViewModel::class.java]
 
         myCartViewModel.myCartLiveList.observe(this){
@@ -36,7 +33,18 @@ class MyCartActivity : AppCompatActivity(),MyCartItemListener {
             binding.myCartRec.layoutManager = LinearLayoutManager(this)
             binding.myCartRec.adapter = myCartAdapter
 
+            totalFoodAmount = getTotalFoodAmount(it)
+            deliveryAmount = if (totalFoodAmount in 1..100){ 7 }else{ 0 }
+            totalAmount = if (totalFoodAmount in 1..100){ totalFoodAmount + deliveryAmount }else{ totalFoodAmount }
+
+            binding.myCartTotalFoodAmount.text = totalFoodAmount.toString()
+            binding.myCartDeliveryAmount.text = deliveryAmount.toString()
+            binding.myCartTotalAmount.text = totalAmount.toString()
+
+            binding
+
         }
+
 
     }
 
@@ -60,9 +68,7 @@ class MyCartActivity : AppCompatActivity(),MyCartItemListener {
                 myCartViewModel.updateCartItem(updatedCartItem)
             }
         }
-
     }
-
     @OptIn(DelicateCoroutinesApi::class)
     override fun onPlusBtnClicked(myCartModel: MyCartModel) {
         val updatedCartItem = MyCartModel(myCartModel.id,myCartModel.foodImage,myCartModel.foodName,
@@ -72,5 +78,12 @@ class MyCartActivity : AppCompatActivity(),MyCartItemListener {
             myCartViewModel.updateCartItem(updatedCartItem)
         }
     }
+}
 
+private fun getTotalFoodAmount(listOfMyCartModel : List<MyCartModel>): Int {
+ var myTotalFoodAmount = 0
+    for (item in listOfMyCartModel){
+         myTotalFoodAmount += item.foodTotalPrice
+    }
+     return myTotalFoodAmount
 }

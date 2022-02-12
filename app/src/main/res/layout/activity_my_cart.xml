@@ -134,7 +134,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="250"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
@@ -143,7 +142,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="14"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
@@ -152,7 +150,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="264"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>

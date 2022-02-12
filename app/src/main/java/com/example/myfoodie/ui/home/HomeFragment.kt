@@ -57,6 +57,7 @@ class HomeFragment : Fragment(), HomeItemListener {
                     homeItemModel.food_price
                 )
             )
+
             GlobalScope.launch(Dispatchers.Main){
                 activity?.startActivity(Intent(activity,MyCartActivity::class.java))
             }
