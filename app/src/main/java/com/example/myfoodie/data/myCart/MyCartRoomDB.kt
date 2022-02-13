@@ -6,20 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [MyCartModel::class], version = 3, exportSchema = false)
-abstract class MyCartRoodDB : RoomDatabase() {
+abstract class MyCartRoomDB : RoomDatabase() {
 
     abstract fun myCartDao() : MyCartDao
 
     companion object{
 
         @Volatile
-        private var instance : MyCartRoodDB? = null
+        private var instance : MyCartRoomDB? = null
 
-        fun getMyCartRoodDB(context: Context) : MyCartRoodDB{
+        fun getMyCartRoodDB(context: Context) : MyCartRoomDB{
             if (instance == null){
                 synchronized(this){
                     instance = Room.databaseBuilder(context.applicationContext
-                        ,MyCartRoodDB::class.java
+                        ,MyCartRoomDB::class.java
                         ,"MyCartDB").build()
                 }
             }
