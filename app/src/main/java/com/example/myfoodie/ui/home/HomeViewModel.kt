@@ -22,6 +22,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application){
     suspend fun insertHomeItem(homeItemModel: HomeItemModel){
         homeItemRepository.insertHomeItem(homeItemModel)
     }
+    suspend fun updateHomeItem(homeItemModel: HomeItemModel){
+        homeItemRepository.updateHomeItem(homeItemModel)
+    }
 
 
 
