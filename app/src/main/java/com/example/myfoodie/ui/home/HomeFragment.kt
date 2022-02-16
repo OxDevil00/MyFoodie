@@ -25,15 +25,15 @@ import java.util.ArrayList
 
 class HomeFragment : Fragment(), HomeItemListener {
 
-    private var _binding: FragmentHomeBinding? = null // This property is valid in only between onCreateView and onDestroyView.
-    private val binding get() = _binding!!
+    // This property is valid in only between onCreateView and onDestroyView.
+    private lateinit var binding : FragmentHomeBinding
     lateinit var homeViewModel : HomeViewModel
     lateinit var favoriteViewModel: FavoriteViewModel
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
@@ -50,6 +50,7 @@ class HomeFragment : Fragment(), HomeItemListener {
         binding.homeCartIcon.setOnClickListener {
             startActivity(Intent(activity,MyCartActivity::class.java))
         }
+
         binding.homeUserImg.setOnClickListener {
             val homeList = ArrayList(listOf(
                 HomeItemModel(0, R.drawable.smosa,"Samosa",20,56,"Samosa Is Testy",false),

@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myfoodie.R
 import com.example.myfoodie.data.favorite.FavoriteItemModel
 import com.example.myfoodie.data.myCart.MyCartModel
 import com.example.myfoodie.databinding.FragmentFavoriteBinding
-import com.example.myfoodie.databinding.FragmentHomeBinding
 import com.example.myfoodie.ui.myCart.MyCartViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
