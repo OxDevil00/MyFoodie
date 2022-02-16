@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myfoodie.R
 import com.example.myfoodie.data.home.HomeItemModel
@@ -40,13 +41,12 @@ class HomeAdapter(private val list : List<HomeItemModel>, private val homeItemLi
         }
         holder.foodLikeImg.setOnClickListener {
             homeItemListener.onLikeBtnClicked(currentItem)
-            if (currentItem.isLiked){
-                holder.foodLikeImg.setImageResource(R.drawable.ic_baseline_favorite_btn_24)
-            }else{
-                holder.foodLikeImg.setImageResource(R.drawable.ic_baseline_un_favorite_btn_24)
-            }
         }
-
+        if (currentItem.isLiked){
+            holder.foodLikeImg.setImageDrawable(ContextCompat.getDrawable(holder.foodLikeImg.context,R.drawable.ic_baseline_favorite_btn_24))
+        }else if(!currentItem.isLiked){
+            holder.foodLikeImg.setImageDrawable(ContextCompat.getDrawable(holder.foodLikeImg.context,R.drawable.ic_baseline_un_favorite_btn_24))
+        }
     }
     inner class HomeViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem)  {
         val foodPic : ImageView = viewItem.findViewById(R.id.home_item_food_img)

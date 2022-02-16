@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myfoodie.R
 import com.example.myfoodie.data.favorite.FavoriteItemModel
 import com.example.myfoodie.data.home.HomeItemModel
@@ -29,6 +30,8 @@ class HomeFragment : Fragment(), HomeItemListener {
     private lateinit var binding : FragmentHomeBinding
     lateinit var homeViewModel : HomeViewModel
     lateinit var favoriteViewModel: FavoriteViewModel
+    private lateinit var homeAdapter: HomeAdapter
+    private lateinit var homeRec : RecyclerView
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -40,9 +43,12 @@ class HomeFragment : Fragment(), HomeItemListener {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
 
+        homeRec = binding.homeItemRec
+        homeRec.layoutManager = LinearLayoutManager(activity)
+
         homeViewModel.homeItemList.observe(viewLifecycleOwner) {
-            binding.homeItemRec.layoutManager = LinearLayoutManager(activity)
-            binding.homeItemRec.adapter = HomeAdapter(it,this)
+            homeAdapter = HomeAdapter(it,this)
+            homeRec.adapter = homeAdapter
         }
         homeViewModel.myCartListLive.observe(viewLifecycleOwner) {
             binding.homeCartCount.text = it.size.toString()
@@ -104,13 +110,21 @@ class HomeFragment : Fragment(), HomeItemListener {
                     homeItemModel.food_description,
                     true
                 )
-                GlobalScope.launch(Dispatchers.IO){
-                favoriteViewModel.insertFavoriteItem(favoriteItemModel)
+                GlobalScope.launch(Dispatchers.IO) {
+                    favoriteViewModel.insertFavoriteItem(favoriteItemModel)
+                    homeViewModel.updateHomeItem(
+                        HomeItemModel(
+                            homeItemModel.id,
+                            homeItemModel.food_pic,
+                            homeItemModel.food_name,
+                            homeItemModel.food_price,
+                            homeItemModel.food_likes_count + 1,
+                            homeItemModel.food_description,
+                            true
+                        ))
                 }
-                homeItemModel.isLiked = true
-                Toast.makeText(activity,
-                    "You Liked ${homeItemModel.food_name}\n ${homeItemModel.food_name} Added To Favorites ",
-                    Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(activity, "You Liked ${homeItemModel.food_name}\n ${homeItemModel.food_name} Added To Favorites ", Toast.LENGTH_SHORT).show()
             }
             else if (homeItemModel.isLiked) {
                 favoriteViewModel.favoriteItemList.observe(viewLifecycleOwner){
@@ -122,7 +136,18 @@ class HomeFragment : Fragment(), HomeItemListener {
                        }
                     }
                 }
-                homeItemModel.isLiked = false
+                GlobalScope.launch(Dispatchers.IO){
+                homeViewModel.updateHomeItem(
+                    HomeItemModel(
+                        homeItemModel.id,
+                        homeItemModel.food_pic,
+                        homeItemModel.food_name,
+                        homeItemModel.food_price,
+                        homeItemModel.food_likes_count - 1,
+                        homeItemModel.food_description,
+                        false
+                    ))
+                }
                 Toast.makeText(activity,
                     "You Unliked ${homeItemModel.food_name}\n ${homeItemModel.food_name} Removed To Favorites ",
                     Toast.LENGTH_SHORT).show()
