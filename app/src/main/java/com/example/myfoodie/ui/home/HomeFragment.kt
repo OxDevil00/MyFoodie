@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myfoodie.R
 import com.example.myfoodie.data.favorite.FavoriteItemModel
 import com.example.myfoodie.data.home.HomeItemModel
 import com.example.myfoodie.data.myCart.MyCartModel
@@ -19,6 +21,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 
 class HomeFragment : Fragment(), HomeItemListener {
 
@@ -27,10 +30,12 @@ class HomeFragment : Fragment(), HomeItemListener {
     lateinit var homeViewModel : HomeViewModel
     lateinit var favoriteViewModel: FavoriteViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
+    {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
@@ -39,8 +44,28 @@ class HomeFragment : Fragment(), HomeItemListener {
             binding.homeItemRec.layoutManager = LinearLayoutManager(activity)
             binding.homeItemRec.adapter = HomeAdapter(it,this)
         }
+        homeViewModel.myCartListLive.observe(viewLifecycleOwner) {
+            binding.homeCartCount.text = it.size.toString()
+        }
         binding.homeCartIcon.setOnClickListener {
-         startActivity(Intent(activity,MyCartActivity::class.java))
+            startActivity(Intent(activity,MyCartActivity::class.java))
+        }
+        binding.homeUserImg.setOnClickListener {
+            val homeList = ArrayList(listOf(
+                HomeItemModel(0, R.drawable.smosa,"Samosa",20,56,"Samosa Is Testy",false),
+                HomeItemModel(0, R.drawable.sadwitch2,"Sandwitch",15,66,"Sandwitch Is Testy",false),
+                HomeItemModel(0, R.drawable.shakes,"Shake",30,26,"Shake Is Testy",false),
+                HomeItemModel(0, R.drawable.shnakes,"Shnakes",36,62,"Shanakes Is Testy",false),
+                HomeItemModel(0, R.drawable.bergger,"Bergger",25,44,"Burger Is Testy",false),
+                HomeItemModel(0, R.drawable.dosa,"Dosa",15,45,"Dosa Is Testy",false),
+                HomeItemModel(0, R.drawable.pakodi,"Pakodi",20,55,"Pakodi Is Testy",false),
+                HomeItemModel(0, R.drawable.lichicipizza,"Pizza",220,561,"Pizza Is Testy",false)
+            ))
+            for (item in homeList) {
+                GlobalScope.launch(Dispatchers.IO){
+                    homeViewModel.insertHomeItem(item)
+                }
+            }
         }
 
         return view
@@ -103,11 +128,23 @@ class HomeFragment : Fragment(), HomeItemListener {
         }
     }
 
-    override fun onMinusBtnClicked(homeItemModel: HomeItemModel) {
-        Toast.makeText(activity,"Not Implemented now",Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onPlusBtnClicked(homeItemModel: HomeItemModel) {
-        Toast.makeText(activity,"Not Implemented now",Toast.LENGTH_SHORT).show()
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onAddToCart(homeItemModel: HomeItemModel) {
+        GlobalScope.launch(Dispatchers.IO) {
+            homeViewModel.insertCartItem(
+                MyCartModel(
+                    0,
+                    homeItemModel.food_pic,
+                    homeItemModel.food_name,
+                    homeItemModel.food_price,
+                    "This Is Very Resty",
+                    1,
+                    homeItemModel.food_price
+                )
+            )
+            GlobalScope.launch(Dispatchers.Main){
+                Toast.makeText(activity, "${homeItemModel.food_name} Added To Your Cart", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

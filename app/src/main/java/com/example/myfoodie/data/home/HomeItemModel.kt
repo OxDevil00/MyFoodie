@@ -1,6 +1,11 @@
 package com.example.myfoodie.data.home
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "HomeTable")
 data class HomeItemModel(
+    @PrimaryKey(autoGenerate = true)
     val id : Int,
     val food_pic: Int,
     val food_name: String,

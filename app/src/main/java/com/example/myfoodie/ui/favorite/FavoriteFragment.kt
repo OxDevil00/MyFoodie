@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfoodie.R
@@ -28,6 +29,7 @@ class FavoriteFragment : Fragment(),FavoriteListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentFavoriteBinding.inflate(inflater,container,false)
         val view = binding.root
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
         favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
         cartViewModel = ViewModelProvider(this)[MyCartViewModel::class.java]
         favoriteAdapter = FavoriteAdapter(this)

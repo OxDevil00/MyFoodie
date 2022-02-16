@@ -26,41 +26,36 @@ class HomeAdapter(private val list : List<HomeItemModel>, private val homeItemLi
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = list[position]
 
-        holder.food_pic.setImageResource(currentItem.food_pic)
-        holder.food_name.text = currentItem.food_name
-        holder.food_price.text = currentItem.food_price.toString()
-        holder.food_likes_count.text = currentItem.food_likes_count.toString()
-        // holder.home_item_count.text
+        holder.foodPic.setImageResource(currentItem.food_pic)
+        holder.foodName.text = currentItem.food_name
+        holder.foodPrice.text = currentItem.food_price.toString()
+        holder.foodLikeCount.text = currentItem.food_likes_count.toString()
 
-        holder.home_item_minus_img.setOnClickListener {
-            homeItemListener.onMinusBtnClicked(currentItem)
+        holder.homeAddToCartTxt.setOnClickListener {
+            homeItemListener.onAddToCart(currentItem)
+            holder.homeAddToCartTxt.visibility = View.GONE
         }
-        holder.home_item_plus_img.setOnClickListener {
-            homeItemListener.onPlusBtnClicked(currentItem)
-        }
-        holder.home_item_place_order_txt.setOnClickListener {
+        holder.homePlaceOrderTxt.setOnClickListener {
             homeItemListener.onPlaceOrderClicked(currentItem)
         }
-        holder.food_like_btn.setOnClickListener {
+        holder.foodLikeImg.setOnClickListener {
             homeItemListener.onLikeBtnClicked(currentItem)
             if (currentItem.isLiked){
-                holder.food_like_btn.setImageResource(R.drawable.ic_baseline_favorite_btn_24)
+                holder.foodLikeImg.setImageResource(R.drawable.ic_baseline_favorite_btn_24)
             }else{
-                holder.food_like_btn.setImageResource(R.drawable.ic_baseline_un_favorite_btn_24)
+                holder.foodLikeImg.setImageResource(R.drawable.ic_baseline_un_favorite_btn_24)
             }
         }
 
     }
     inner class HomeViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem)  {
-        val food_pic : ImageView = viewItem.findViewById(R.id.home_item_food_img)
-        val food_name : TextView = viewItem.findViewById(R.id.home_item_food_name)
-        val food_price : TextView = viewItem.findViewById(R.id.home_item_food_price)
-        val food_like_btn : ImageView = viewItem.findViewById(R.id.home_item_like_btn)
-        val food_likes_count : TextView = viewItem.findViewById(R.id.home_item_like_count)
-        val home_item_place_order_txt : TextView = viewItem.findViewById(R.id.home_item_place_order_txt)
-        val home_item_minus_img : ImageView = viewItem.findViewById(R.id.home_item_minus_img)
-        val home_item_plus_img : ImageView = viewItem.findViewById(R.id.home_item_plus_img)
-
+        val foodPic : ImageView = viewItem.findViewById(R.id.home_item_food_img)
+        val foodName : TextView = viewItem.findViewById(R.id.home_item_food_name)
+        val foodPrice : TextView = viewItem.findViewById(R.id.home_item_food_price)
+        val foodLikeImg : ImageView = viewItem.findViewById(R.id.home_item_like_btn)
+        val foodLikeCount : TextView = viewItem.findViewById(R.id.home_item_like_count)
+        val homePlaceOrderTxt : TextView = viewItem.findViewById(R.id.home_item_place_order_txt)
+        val homeAddToCartTxt : TextView = viewItem.findViewById(R.id.home_add_to_cart)
 
     }
 }
@@ -68,6 +63,6 @@ class HomeAdapter(private val list : List<HomeItemModel>, private val homeItemLi
 interface HomeItemListener {
     fun onPlaceOrderClicked(homeItemModel: HomeItemModel)
     fun onLikeBtnClicked(homeItemModel: HomeItemModel)
-    fun onMinusBtnClicked(homeItemModel: HomeItemModel)
-    fun onPlusBtnClicked(homeItemModel: HomeItemModel)
+    fun onAddToCart(homeItemModel: HomeItemModel)
+
 }
